@@ -1,0 +1,116 @@
+﻿@page "/luhn-algorithm"
+
+@using Kryptos.Web.Client.Components.Luhn.TableSteps
+
+<section>
+    <h2 class="block mb-2 text-5xl font-medium tracking-widest uppercase lg:text-center dark:text-violet-400">
+        Luhn Algorithm
+    </h2>
+    <span class="block text-xl font-bold lg:text-center dark:text-gray-50">
+        Validate identification numbers
+    </span>
+</section>
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12">
+        <h2 class="text-5xl font-bold dark:text-gray-50">Introduction</h2>
+        <p class="dark:text-gray-400">
+            The Luhn algorithm, also known as the <span class="font-bold">modulus 10</span> or
+            <span class="font-bold">
+                mod 10 algorithm
+            </span>,
+            is a simple checksum formula used to validate a variety of identification numbers,
+            such as credit card numbers, IMEI numbers, Social Security Numbers.
+            It is named after it's creator IBM Scientist Hans Peter Luhn.
+        </p>
+        <p class="dark:text-gray-400">
+            Because the algorithm is in the public domain, it can be used by anyone.
+            Most credit cards and many government identification numbers use the algorithm as a
+            simple method of distinguishing valid numbers from mistyped or otherwise incorrect numbers.
+            It was designed to protect against accidental errors, not malicious attacks.
+        </p>
+    </div>
+</section>
+
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12 dark:bg-gray-900">
+        <h2 class="text-5xl font-bold dark:text-gray-10">How it works</h2>
+        <p class="dark:text-gray-100">
+            Applying the Luhn Algorithm to the account number: 79927398713
+        </p>
+        <div>
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">STEP 1</h2>
+                    <p class="leading-relaxed">
+                        Starting from the rightmost digit, double the value of every second digit.
+                    </p>
+                    <TableStepOne/>
+                </div>
+            </div>
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">STEP 2</h2>
+                    <p class="leading-relaxed">
+                        If the doubling of a number results in a two digit number i.e greater than 9 (e.g: 6x2 = 12),
+                        then add the digits of the product (e.g: 12: 1+2 = 3, 15: 1+5 = 6), to get a single digit number.
+                    </p>
+                    <TableStepTwo/>
+                </div>
+            </div>
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                    </svg>
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">STEP 3</h2>
+                    <p class="leading-relaxed">
+                        Put all the numbers together
+                    </p>
+                    <TableStepThree/>
+                </div>
+            </div>
+            <div class="flex relative">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">FINISH</h2>
+                    <p class="leading-relaxed">
+                        Now take the sum of all the digits.
+                        If the total modulo 10 is equal to 0 (if the total ends in 0), the the number is valid according
+                        to the Luhn algorithm; else it is not valid.
+                    </p>
+                    <p class="leading-relaxed">
+                        In this case it is: <br />
+                        7 + 9 + 9 + 4 + 7 + 6 + 9 + 7 + 7 + 2 + 3 = 70 <br />
+                        This is a <span class="font-bold">valid</span> number.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

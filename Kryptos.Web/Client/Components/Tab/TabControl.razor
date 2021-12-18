@@ -1,0 +1,49 @@
+﻿<div class="border-b border-gray-200 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px">
+        @foreach (TabPage tabPage in Pages)
+        {
+            <li class="mr-2">
+                <button type="button" 
+                        class="inline-flex py-4 px-4 text-sm font-medium text-center rounded-t-lg border-b-2 group @GetButtonClass(tabPage)" 
+                         @onclick=@(() => ActivatePage(tabPage))>
+                    @tabPage.Text
+                </button>
+            </li>
+        }
+    </ul>
+</div>
+
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public TabPage ActivePage { get; set; }
+    List<TabPage> Pages = new();
+
+    string GetButtonClass(TabPage page)
+    {
+        return page == ActivePage ? 
+            "text-violet-400 border-violet-400 active dark:text-violet-400 dark:border-violet-400" 
+            : "text-gray-500 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300";
+    }
+
+    void ActivatePage(TabPage page)
+    {
+        ActivePage = page;
+    }
+
+    internal void AddPage(TabPage tabPage)
+    {
+        Pages.Add(tabPage);
+        if (Pages.Count == 1)
+            ActivePage = tabPage;
+        StateHasChanged();
+    }
+
+}

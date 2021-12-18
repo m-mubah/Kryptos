@@ -1,0 +1,132 @@
+﻿@page "/"
+
+<section>
+    <h2 class="block mb-2 text-5xl font-medium tracking-widest uppercase lg:text-center dark:text-violet-400">Kryptos:</h2>
+    <span class="block text-xl font-bold lg:text-center dark:text-gray-50">
+        From Greek: Hidden / Secret - An Origin of the word cryptography
+    </span>
+</section>
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12">
+        <h2 class="text-5xl font-bold dark:text-gray-50">Introduction</h2>
+        <p class="dark:text-gray-400">
+            Cryptography is the art and science of concealing messages to introduce secrecy in information security.
+        </p>
+        <p class="dark:text-gray-400">
+            The art of cryptography is considered to be born along with the art of writing.
+            As civilizations evolved, human beings got organized in tribes, groups, and kingdoms.
+            This led to the emergence of ideas such as power, battles, supremacy, and politics.
+            These ideas further fueled the natural need of people to communicate secretly with selective
+            recipient which in turn ensured the continuous evolution of cryptography as well.
+        </p>
+
+        <h3 class="text-xl font-bold dark:text-gray-50">History</h3>
+        <div class="dark:text-gray-400">
+            The roots of cryptography stem from two civilizations:
+
+            <div class="flex flex-row space-x-8 justify-items-center pt-3">
+                <div class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl dark:border-gray-900 dark:bg-gray-900">
+                    <div class="flex flex-col justify-between p-8 leading-normal">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Egypt - Heiroglyphics</h5>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            The first known evidence of cryptography can be traced to the use of ‘hieroglyph’.
+                            Some 4000 years ago, the Egyptians used to communicate by messages written in hieroglyph.
+                            This code was the secret known only to the scribes who used to transmit messages on behalf of the kings.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl dark:border-gray-900 dark:bg-gray-900">
+                    <div class="flex flex-col justify-between p-8 leading-normal">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Caesar Cipher - Rome</h5>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            The earlier Roman method of cryptography, popularly known as the
+                            Caesar Shift Cipher, relies on shifting the letters of a message by an agreed number (three was a common choice),
+                            the recipient of this message would then shift the letters back by the same number and obtain the original message.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12 dark:bg-gray-900">
+        <h2 class="text-5xl font-bold dark:text-gray-50">Classical vs Modern Cryptography</h2>
+
+        <table class="min-w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                    Classical
+                </th>
+                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                    Modern
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    It manipulates traditional characters, i.e., letters and digits directly.
+                </td>
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    It operates on binary bit sequences.
+                </td>
+            </tr>
+
+            <tr class="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    It is mainly based on ‘security through obscurity’. <br/>
+                    The techniques employed for coding were kept secret and only the parties involved in <br />
+                    communication knew about them.
+                </td>
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    It relies on publicly known mathematical algorithms for coding the information. <br/>
+                    Secrecy is obtained through a secret key which is used as the seed for the algorithms. <br/>
+                    The computational difficulty of algorithms, absence of secret key, etc., <br/>
+                    make it impossible for an attacker to obtain the original information even if the <br/>
+                    algorithm used for encoding is known.
+                </td>
+            </tr>
+
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    It requires the entire cryptosystem for communicating confidentially.
+                </td>
+                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Modern cryptography requires parties interested in secure communication to possess the secret key only.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section>
+    <div class="grid gap-6 lg:grid-cols-3">
+        <div class="p-6 rounded lg:p-8 lg:py-12 dark:bg-gray-900">
+            <h3 class="inline font-medium dark:text-gray-50">Panel-based blocks.</h3>
+            <p class="inline">Flexible panels that are perfect for building functional layouts.</p>
+        </div>
+        <div class="p-6 rounded lg:p-8 lg:py-12 dark:bg-gray-900">
+            <h3 class="inline font-medium dark:text-gray-50">Responsive design.</h3>
+            <p class="inline">Panels look great no matter the device.</p>
+        </div>
+        <div class="p-6 rounded lg:p-8 lg:py-12 dark:bg-gray-900">
+            <h3 class="inline font-medium dark:text-gray-50">Premium support.</h3>
+            <p class="inline">Join over 50 000 satisfied customers who use our templates.</p>
+        </div>
+    </div>
+</section>
+
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12">
+        <h2 class="text-5xl font-bold dark:text-gray-50">About</h2>
+        <p class="dark:text-gray-400">
+            This project is implemented as the assignment portion of Cryptography (UFCFT4-15-3),
+            and aims to explain some cryptography concepts with the help of example apps.
+        </p>
+    </div>
+</section>

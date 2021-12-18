@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kryptos.Web.Server", "E:\Kryptos\Kryptos.Web\Server\Kryptos.Web.Server.csproj", "{0FE1E3C0-1F32-40EA-8847-D4E84D6A024E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kryptos.Web.Client", "E:\Kryptos\Kryptos.Web\Client\Kryptos.Web.Client.csproj", "{740FE1FE-EC01-4C4B-9AE2-D2C65F25364D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kryptos.Web.Shared", "E:\Kryptos\Kryptos.Web\Shared\Kryptos.Web.Shared.csproj", "{C2D03992-83B9-4391-A80C-D7ECFBE4A53F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FE1E3C0-1F32-40EA-8847-D4E84D6A024E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE1E3C0-1F32-40EA-8847-D4E84D6A024E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE1E3C0-1F32-40EA-8847-D4E84D6A024E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE1E3C0-1F32-40EA-8847-D4E84D6A024E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{740FE1FE-EC01-4C4B-9AE2-D2C65F25364D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{740FE1FE-EC01-4C4B-9AE2-D2C65F25364D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{740FE1FE-EC01-4C4B-9AE2-D2C65F25364D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{740FE1FE-EC01-4C4B-9AE2-D2C65F25364D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2D03992-83B9-4391-A80C-D7ECFBE4A53F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D03992-83B9-4391-A80C-D7ECFBE4A53F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D03992-83B9-4391-A80C-D7ECFBE4A53F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D03992-83B9-4391-A80C-D7ECFBE4A53F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {246A3C7A-CCDE-4E90-8467-3003B734BF0D}
+	EndGlobalSection
+EndGlobal

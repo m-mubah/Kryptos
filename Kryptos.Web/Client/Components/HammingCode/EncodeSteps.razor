@@ -1,0 +1,88 @@
+﻿<div>
+    <div class="flex relative pb-12">
+        <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+            <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+        </div>
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+        </div>
+        <div class="flex-grow pl-4">
+            <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">
+                STEP 1 - Calculate the number of redundant bits
+            </h2>
+            <p class="leading-relaxed">
+                If the message contains <i>m<sub>m</sub></i> number of data bits,
+                <i>r<sub>r</sub></i> number of redundan bits are added to it so that
+                <i>m<sub>r</sub></i> is able to indicate at least
+                <i>(m + r + 1)</i> different states. Here, <i>(m + r)</i> indicates
+                location of an error in each of <i>(m + r)</i> bit positions and one additional
+                state indicates no error. Since <i>r<sub>r</sub></i> bits can indicate
+                <i>2<sup>r</sup>r</i> states, <i>2<sup>r</sup>r</i> must be
+                atleast equal to <span>(m + r +1).</span> Thus the following equation should hold:
+                <i>2<sup>r</sup> &GreaterEqual; m + r +1</i>.
+            </p>
+        </div>
+    </div>
+    <div class="flex relative pb-12">
+        <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+            <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+        </div>
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+            </svg>
+        </div>
+        <div class="flex-grow pl-4">
+            <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">
+                STEP 2 - Position the redundant bits
+            </h2>
+            <p class="leading-relaxed">
+                The <i>r</i> redundant bits placed at bit positions of powers of 2, i.e 1,2,4,8,16 etc...
+                They are referred in the rest of this text as <i>r<sub>1</sub> (at position 1)</i>,
+                <i>r<sub>2</sub> (at position 2)</i>, <i>r<sub>3</sub> (at position 4)</i>,
+                <i>r<sub>4</sub> (at position 8)</i> and so on.
+            </p>
+        </div>
+    </div>
+    <div class="flex relative">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+        </div>
+        <div class="flex-grow pl-4">
+            <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">
+                STEP 3 - Calculate the values of each redundant bit
+            </h2>
+            <p class="leading-relaxed">
+                The redundant bits are parity bits. A parity bit is an extra bit that makes the numbers of 1s either
+                even or odd. The two types of parity bits are:
+            </p>
+            <ul class="list-disc dark:text-gray-400 py-4">
+                <li><b>Even parity</b> - The total number of bits in the message are made even.</li>
+                <li><b>Odd parity</b> - The total number of bits in the message are made odd.</li>
+            </ul>
+            <p class="leading-relaxed">
+                Each redundant bit, <i>r<sub>i</sub></i>, is calculated as the parity, generally even parity, based
+                upon its bit position. It covers all bit positions whose binary representation includes a 1 in the
+                <i>i<sup>th</sup></i> position except the positions of <i>r<sub>i</sub></i>. Thus:
+            </p>
+            <ul class="list-disc dark:text-gray-400 pt-3">
+                <li>
+                    <i>r<sub>1</sub></i> is the parity bit for all data bits in positions whose binary representation
+                    includes a 1 in the least significant position excluding 1, i.e (3, 5, 7, 9, 11 and so on).
+                </li>
+                <li>
+                    <i>r<sub>2</sub></i> is the parity bit for all data bits in positions whose binary representation
+                    includes a 1 in the position 2 from right except 2, i.e (3, 6, 7, 10, 11 and so on).
+                </li>
+                <li>
+                    <i>r<sub>3</sub></i> is the parity bit for all data bits in positions whose binary representation
+                    includes a 1 in the position 3 from right except 4, i.e (5 - 7, 12 - 15, 20 - 23 and so on).
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

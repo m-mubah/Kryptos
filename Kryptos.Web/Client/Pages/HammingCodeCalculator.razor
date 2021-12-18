@@ -1,0 +1,42 @@
+﻿@page "/hamming-code-calculator"
+
+@using Kryptos.Web.Client.Components.HammingCode
+
+<section>
+    <h2 class="block mb-2 text-5xl font-medium tracking-widest uppercase lg:text-center dark:text-violet-400">
+        Hamming Code Calculator
+    </h2>
+    <span class="block text-xl font-bold lg:text-center dark:text-gray-50">
+        Error detection & correction
+    </span>
+</section>
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12">
+        <h2 class="text-5xl font-bold dark:text-gray-50">Introduction</h2>
+        <p class="dark:text-gray-400">
+            Hamming code is a block code that is capable of detecting up to two simultaneous bit errors and correctiong
+            single-bit errors. It was developed by R.W. Hamming for error detection and correction.
+        </p>
+        <p class="dark:text-gray-400">
+            In this coding method, the source encodes the message by inserting redundant bits within the message.
+            These redundant bits are extra bits that are generated and inserted at specific positions in the message
+            itself to enable error detection and correction. When the destination recieves this message, it performs
+            calculations to detect errors and find the position that has an error.
+        </p>
+    </div>
+</section>
+
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12 dark:bg-gray-900">
+        <h2 class="text-5xl font-bold dark:text-gray-10">How it works</h2>
+        <TabControl>
+            <TabPage Text="Encode">
+                <EncodeSteps/>
+            </TabPage>
+
+            <TabPage Text="Decode">
+                <DecodeSteps/>
+            </TabPage>
+        </TabControl>
+    </div>
+</section>
