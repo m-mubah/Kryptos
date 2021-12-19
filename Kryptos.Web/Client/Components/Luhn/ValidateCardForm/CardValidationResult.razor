@@ -1,0 +1,51 @@
+﻿@using Kryptos.Web.Client.Models.Luhn
+
+@if (Result.IsValid)
+{
+    <div class="max-w-2xl mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-900">
+        <div class="flex items-center px-6 py-3 bg-green-700">
+            <h1 class="mx-3 text-lg font-semibold text-white">Valid</h1>
+        </div>
+
+        <div class="px-6 py-4">
+            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+                <h1 class="px-2 text-sm">Card Number: @Result.CardNumber</h1>
+            </div>
+
+            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <h1 class="px-2 text-sm">Issuer: @Result.Issuer</h1>
+            </div>
+
+            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+                <h1 class="px-2 text-sm">Industry: @Result.Industry</h1>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="w-full text-white bg-red-500">
+        <div class="container flex items-center justify-between px-6 py-4 mx-auto">
+            <div class="flex">
+                <p class="mx-3 text-lg font-semibold">
+                    Invalid
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+@code
+{
+    [Parameter]
+    public ValidationResult Result { get; set; }
+}

@@ -55,7 +55,7 @@ public class LuhnService : ILuhnService
         var manufacturer = cardNumber switch
         {
             var masterCard when Regex.IsMatch(masterCard, MasterCardRegexPattern)
-                => "/img/cards/master-card.png",
+                => "/img/cards/mastercard.png",
             var visa when Regex.IsMatch(visa, VisaRegexPattern)
                 => "/img/cards/visa.png",
             var americanExpress when Regex.IsMatch(americanExpress, AmericanExpressRegexPattern) =>
