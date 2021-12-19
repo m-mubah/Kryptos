@@ -1,0 +1,68 @@
+﻿@using Kryptos.Web.Client.Models.Luhn
+<EditForm Model="@FormData" OnValidSubmit="@ValidFormSubmit">
+    <DataAnnotationsValidator/>
+    
+    <div class="mb-6">
+        <InputRadioGroup @bind-Value="FormData.CardManufacturer">
+            <div class="flex items-center mb-4">
+                <InputRadio Value="CardManufacturer.AmericanExpress"
+                            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600 dark:focus:bg-violet-600 dark:bg-gray-700 dark:border-gray-600"/>
+                <label class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    American Express
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4">
+                <InputRadio Value="CardManufacturer.DinersClub"
+                            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600 dark:focus:bg-violet-600 dark:bg-gray-700 dark:border-gray-600"/>
+                <label class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Diner's Club
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4">
+                <InputRadio Value="CardManufacturer.Discover"
+                            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600 dark:focus:bg-violet-600 dark:bg-gray-700 dark:border-gray-600"/>
+                <label class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Discover
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4">
+                <InputRadio Value="CardManufacturer.Jcb"
+                            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600 dark:focus:bg-violet-600 dark:bg-gray-700 dark:border-gray-600"/>
+                <label class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    JCB
+                </label>
+            </div>
+            <div class="flex items-center mb-4">
+                <InputRadio Value="CardManufacturer.MasterCard"
+                            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600 dark:focus:bg-violet-600 dark:bg-gray-700 dark:border-gray-600"/>
+                <label class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Master Card
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4">
+                <InputRadio Value="CardManufacturer.Visa"
+                            class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600 dark:focus:bg-violet-600 dark:bg-gray-700 dark:border-gray-600"/>
+                <label class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Visa
+                </label>
+            </div>
+        </InputRadioGroup>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <ValidationMessage For="() => FormData.CardManufacturer"/>
+        </p>
+    </div>
+
+    <button type="submit" disabled="@ButtonDisabled"
+            class="@(EditContext.Validate() ? "btn-primary" : "btn-primary-disabled")">
+        Generate
+    </button>
+</EditForm>
+
+@if (ShowResult)
+{
+    <GenerateCardResult Card="Result"/>
+}

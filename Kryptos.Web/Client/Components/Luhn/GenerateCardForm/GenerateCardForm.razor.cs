@@ -1,29 +1,26 @@
-﻿using Kryptos.Web.Client.Models.HammingCode;
-using Kryptos.Web.Client.Services.HammingCode;
+﻿using Kryptos.Web.Client.Models.Luhn;
+using Kryptos.Web.Client.Services.Luhn;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 
-namespace Kryptos.Web.Client.Components.HammingCode.DecodeForm;
+namespace Kryptos.Web.Client.Components.Luhn.GenerateCardForm;
 
-public partial class DecodeForm : ComponentBase
+public partial class GenerateCardForm : ComponentBase
 {
-    [Inject] private IJSRuntime JsRuntime { get; set; }
-    [Inject] private  IHammingCodeService HammingCodeService { get; set; }
-    
+    [Inject] public ILuhnService LuhnService { get; set; }
+
     private EditContext EditContext;
-    private DecodeSequence FormData { get; set; } = new();
+    private GenerateCard FormData { get; set; } = new();
     private string? ButtonDisabled { get; set; } = "disabled";
-    
-    private DecodingResult Result { get; set; }
+
+    private CreditCard Result { get; set; }
     private bool ShowResult { get; set; } = false;
 
     protected override void OnInitialized()
     {
         EditContext = new EditContext(FormData);
         EditContext.OnFieldChanged += EditContext_OnFieldChanged;
-        
+
         base.OnInitialized();
     }
 
@@ -33,12 +30,12 @@ public partial class DecodeForm : ComponentBase
 
         SetButtonDisabledStatus();
     }
-    
+
     private void EditContext_OnFieldChanged(object? sender, FieldChangedEventArgs e)
     {
         SetButtonDisabledStatus();
     }
- 
+
     private void SetButtonDisabledStatus()
     {
         ButtonDisabled = EditContext.Validate() ? null : "disabled";
@@ -51,8 +48,8 @@ public partial class DecodeForm : ComponentBase
             ShowResult = false;
             await Task.Delay(250);
         }
-        
-        Result = HammingCodeService.DetectError(FormData.Value, FormData.Parity);
+
+        Result = LuhnService.Generate(FormData.CardManufacturer);
         ShowResult = true;
     }
 }
