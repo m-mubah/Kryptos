@@ -22,6 +22,9 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\lib\ionicons\ionicons.esm.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\ionicons\ionicons.js" />
+    <_ContentIncludedByDefault Remove="Components\Icons\Toasts\Info.razor" />
+    <_ContentIncludedByDefault Remove="Components\Icons\Toasts\Success.razor" />
+    <_ContentIncludedByDefault Remove="Components\Toast\Toast.razor" />
   </ItemGroup>
 
   <Target Name="CheckForNpm" BeforeTargets="NpmInstall">

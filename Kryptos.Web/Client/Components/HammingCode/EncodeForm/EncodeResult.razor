@@ -1,0 +1,38 @@
+﻿@using Kryptos.Web.Client.Services.Clipboard
+@using Kryptos.Web.Client.Models.HammingCode
+<div class="w-full text-white bg-emerald-500">
+    <div class="container flex items-center justify-between px-6 py-4 mx-auto">
+        <div class="flex">
+            <p class="mx-3">
+                <b>@Result.Parity.ToString(): </b> @Result.Encoding
+            </p>
+        </div>
+
+        <button @onclick="CopyToClipboard" class="p-1 transition-colors duration-200 transform rounded-md hover:bg-opacity-25 hover:bg-gray-600 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+@code {
+
+    [Inject]
+    IClipboardService ClipboardService { get; set; }
+
+    [Parameter]
+    public EncodingResult Result { get; set; }
+
+    async Task CopyToClipboard()
+    {
+        try
+        {
+            await ClipboardService.WriteTextAsync(Result.Encoding);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Cannot write text to clipboard.");
+        }
+    }
+}

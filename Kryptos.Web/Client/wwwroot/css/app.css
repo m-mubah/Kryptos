@@ -1,3 +1,13 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn-primary {
+       @apply text-white bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:ring-violet-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-violet-600  dark:hover:bg-violet-700 dark:focus:ring-violet-800;
+    }
+
+    .btn-primary-disabled {
+        @apply text-white bg-violet-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-violet-900;
+    }
+}
