@@ -1,5 +1,7 @@
 ﻿@page "/encryption"
 
+@using Kryptos.Web.Client.Components.SecretMessage.ConcealForm
+
 <PageTitle>Kryptos | Encryption</PageTitle>
 
 <section>
@@ -29,5 +31,20 @@
             by byte to transform plain text into code that's unreadable to anyone without the proper key.
             Stream ciphers are linear, so the same key both encrypts and decrypts messages.
         </p>
+    </div>
+</section>
+
+<section class="grid gap-6 lg:grid-cols-2">
+    <div class="p-8 space-y-8 rounded-md lg:col-span-full lg:py-12">
+        <h2 class="text-5xl font-bold dark:text-gray-50">Example</h2>
+        <TabControl>
+            <TabPage Text="Conceal">
+                <ConcealForm />
+            </TabPage>
+
+            <TabPage Text="Reveal">
+                <p>Reveal Form</p>
+            </TabPage>
+        </TabControl>
     </div>
 </section>

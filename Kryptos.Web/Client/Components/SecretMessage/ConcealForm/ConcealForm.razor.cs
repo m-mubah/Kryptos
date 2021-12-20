@@ -1,24 +1,21 @@
-﻿using Kryptos.Web.Client.Models.HammingCode;
-using Kryptos.Web.Client.Services.HammingCode;
+﻿using Kryptos.Web.Client.Models.SecretMessage;
+using Kryptos.Web.Client.Services.Encryption;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
-namespace Kryptos.Web.Client.Components.HammingCode.EncodeForm;
+namespace Kryptos.Web.Client.Components.SecretMessage.ConcealForm;
 
-public partial class EncodeForm : ComponentBase
+public partial class ConcealForm : ComponentBase
 {
-    [Inject] private  IHammingCodeService HammingCodeService { get; set; }
+    [Inject] private IJSRuntime JsRuntime { get; set; }
+    [Inject] private  IStreamCipherService StreamCipherService { get; set; }
     
     private EditContext EditContext;
-    private EncodeSequence FormData { get; set; } = new();
+    private ConcealMessage FormData { get; set; } = new();
     private string? ButtonDisabled { get; set; } = "disabled";
 
     private bool ShowResult { get; set; } = false;
-    
-    private EncodingResult OddResult { get; set; }
-    private EncodingResult EvenResult { get; set; }
     
     protected override void OnInitialized()
     {
@@ -53,10 +50,12 @@ public partial class EncodeForm : ComponentBase
 
             await Task.Delay(250);
         }
-        
-        OddResult = HammingCodeService.Encode(FormData.Value, Parity.Odd);
-        EvenResult = HammingCodeService.Encode(FormData.Value, Parity.Even);
 
+        string encryptedBinary = StreamCipherService.Encrypt(FormData.Key, FormData.Secret);
+        string decryptedString = StreamCipherService.Decrypt(FormData.Key, encryptedBinary);
+
+        await JsRuntime.InvokeVoidAsync("alert", decryptedString);
+        
         ShowResult = true;
     }
 }

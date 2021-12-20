@@ -1,0 +1,45 @@
+﻿<EditForm Model="@FormData" OnValidSubmit="@ValidFormSubmit">
+    <DataAnnotationsValidator/>
+    <div class="mb-6">
+        <label for="conceal-message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Message
+        </label>
+        <InputText @bind-Value="FormData.Message"
+                   id="conceal-message"
+                   class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </InputText>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <ValidationMessage For="() => FormData.Message"/>
+        </p>
+    </div>
+
+    <div class="mb-6">
+        <label for="conceal-message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Key
+        </label>
+        <InputText @bind-Value="FormData.Key"
+                   id="conceal-key"
+                   class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </InputText>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <ValidationMessage For="() => FormData.Key"/>
+        </p>
+    </div>
+
+    <div class="mb-6">
+        <label for="conceal-message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Secret
+        </label>
+        <InputText @bind-Value="FormData.Secret"
+                   id="conceal-secret"
+                   class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </InputText>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <ValidationMessage For="() => FormData.Secret"/>
+        </p>
+    </div>
+    <button type="submit" disabled="@ButtonDisabled"
+            class="@(EditContext.Validate() ? "btn-primary" : "btn-primary-disabled")">
+        Conceal
+    </button>
+</EditForm>
