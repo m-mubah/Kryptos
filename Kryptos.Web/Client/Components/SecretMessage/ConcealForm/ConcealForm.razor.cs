@@ -1,5 +1,6 @@
 ﻿using Kryptos.Web.Client.Models.SecretMessage;
 using Kryptos.Web.Client.Services.Encryption;
+using Kryptos.Web.Client.Services.Steganography;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -9,19 +10,19 @@ namespace Kryptos.Web.Client.Components.SecretMessage.ConcealForm;
 public partial class ConcealForm : ComponentBase
 {
     [Inject] private IJSRuntime JsRuntime { get; set; }
-    [Inject] private  IStreamCipherService StreamCipherService { get; set; }
-    
+    [Inject] private IStreamCipherService StreamCipherService { get; set; }
+    [Inject] private ISteganographyService SteganographyService { get; set; }
     private EditContext EditContext;
     private ConcealMessage FormData { get; set; } = new();
     private string? ButtonDisabled { get; set; } = "disabled";
 
     private bool ShowResult { get; set; } = false;
-    
+
     protected override void OnInitialized()
     {
         EditContext = new EditContext(FormData);
         EditContext.OnFieldChanged += EditContext_OnFieldChanged;
-        
+
         base.OnInitialized();
     }
 
@@ -31,12 +32,12 @@ public partial class ConcealForm : ComponentBase
 
         SetButtonDisabledStatus();
     }
-    
+
     private void EditContext_OnFieldChanged(object? sender, FieldChangedEventArgs e)
     {
         SetButtonDisabledStatus();
     }
- 
+
     private void SetButtonDisabledStatus()
     {
         ButtonDisabled = EditContext.Validate() ? null : "disabled";
@@ -52,10 +53,11 @@ public partial class ConcealForm : ComponentBase
         }
 
         string encryptedBinary = StreamCipherService.Encrypt(FormData.Key, FormData.Secret);
-        string decryptedString = StreamCipherService.Decrypt(FormData.Key, encryptedBinary);
+        string messageWithSecret = SteganographyService.Conceal(FormData.Message, encryptedBinary);
+        string extractedSecret = SteganographyService.Reveal(messageWithSecret);
+        string decryptedSecret = StreamCipherService.Decrypt(FormData.Key, extractedSecret);
+        await JsRuntime.InvokeVoidAsync("alert", decryptedSecret);
 
-        await JsRuntime.InvokeVoidAsync("alert", decryptedString);
-        
         ShowResult = true;
     }
 }
