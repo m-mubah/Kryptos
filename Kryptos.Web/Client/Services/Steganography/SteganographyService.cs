@@ -1,4 +1,6 @@
-﻿namespace Kryptos.Web.Client.Services.Steganography;
+﻿using Kryptos.Web.Client.Extensions;
+
+namespace Kryptos.Web.Client.Services.Steganography;
 
 public class SteganographyService : ISteganographyService
 {
@@ -22,7 +24,7 @@ public class SteganographyService : ISteganographyService
 
         if (message.Contains(" "))
         {
-            return message.Replace(" ", hidden);
+            return message.ReplaceFirst(" ", " " + hidden);
         }
 
         return message.Substring(0, 1) + hidden + message.Substring(1);

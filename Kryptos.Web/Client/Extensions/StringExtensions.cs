@@ -5,10 +5,9 @@ namespace Kryptos.Web.Client.Extensions;
 public static class StringExtensions
 {
     /// <summary>
-    /// Converts a string to binary string
+    /// Converts a string to it's binary form and returns it as a string.
     /// </summary>
     /// <param name="data">string to be converted</param>
-    /// <param name="formatBits">if true, separates each binary string</param>
     /// <returns></returns>
     public static string ToBinary(this string data)
     {
@@ -27,7 +26,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Converts a binary string (a string of 1s and 0s) to it's original string.
+    /// Converts a binary string (a string of 1s and 0s) to a string of words or characters.
     /// E.g: 0110100001100101011011000110110001101111 -> hello
     /// There must be no spaces between the 1s and 0s.
     /// </summary>
@@ -49,5 +48,25 @@ public static class StringExtensions
         string str = enc.GetString(bytes);
 
         return str;
+    }
+    
+    /// <summary>
+    /// Returns a new string in which the first occurence of a specified string in the current instance is replaced with
+    /// another specified string.
+    /// </summary>
+    /// <param name="text">Current text.</param>
+    /// <param name="oldValue">The string to be replaced.</param>
+    /// <param name="newValue">The string to replace the first occurence with.</param>
+    /// <returns>A string that is equivalent to the current string except the first occurence of oldValue is
+    /// replaced with newValue. If oldValue is not found in the current instance, the method returns current
+    /// instance unchanged.</returns>
+    public static string ReplaceFirst(this string text, string oldValue, string newValue)
+    {
+        int pos = text.IndexOf(oldValue, StringComparison.Ordinal);
+        if (pos < 0)
+        {
+            return text;
+        }
+        return text.Substring(0, pos) + newValue + text.Substring(pos + oldValue.Length);
     }
 }

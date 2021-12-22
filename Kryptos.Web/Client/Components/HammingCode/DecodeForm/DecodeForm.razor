@@ -1,5 +1,5 @@
 ﻿@using Kryptos.Web.Client.Models.HammingCode
-<EditForm Model="@FormData" OnValidSubmit="@ValidFormSubmit">
+<EditForm Model="@FormData" OnValidSubmit="@ValidFormSubmit" autocomplete="off">
     <DataAnnotationsValidator/>
     <div class="mb-6">
         <InputText @bind-Value="FormData.Value"

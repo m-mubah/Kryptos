@@ -1,0 +1,117 @@
+﻿<div class="flex h-9/10 antialiased text-gray-800">
+    <div class="flex flex-row h-full w-full overflow-x-hidden">
+        <div class="flex flex-col pl-6 pr-2 w-72 bg-white dark:bg-gray-900 flex-shrink-0">
+            <EditForm Model="@ConcealMessageFormData" OnValidSubmit="@GenerateSecretMessage" autocomplete="off">
+                <DataAnnotationsValidator/>
+                <div class="mb-6">
+                    <label for="chat-conceal-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Name
+                    </label>
+                    <InputText @bind-Value="ConcealMessageFormData.Name"
+                               id="chat-conceal-name"
+                               class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
+                    </InputText>
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        <ValidationMessage For="() => ConcealMessageFormData.Name"/>
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <label for="chat-conceal-message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Message
+                    </label>
+                    <InputText @bind-Value="ConcealMessageFormData.Message"
+                               id="chat-conceal-message"
+                               class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
+                    </InputText>
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        <ValidationMessage For="() => ConcealMessageFormData.Message"/>
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <label for="chat-conceal-key" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Key
+                    </label>
+                    <InputText @bind-Value="ConcealMessageFormData.Key"
+                               id="chat-conceal-key"
+                               class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
+                    </InputText>
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        <ValidationMessage For="() => ConcealMessageFormData.Message"/>
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <label for="chat-conceal-secret" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Secret
+                    </label>
+                    <InputText @bind-Value="ConcealMessageFormData.Secret"
+                               id="chat-conceal-secret"
+                               class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
+                    </InputText>
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        <ValidationMessage For="() => ConcealMessageFormData.Secret"/>
+                    </p>
+                </div>
+                <button type="submit" class="py-2 px-3 text-xs font-medium text-center text-white bg-violet-700 rounded-lg hover:bg-violet-800 focus:ring-4 focus:ring-violet-300 dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800">
+                    Conceal
+                </button>
+            </EditForm>
+        </div>
+        <div class="flex flex-col flex-auto h-24 p-6">
+            <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-800 h-20 p-4">
+                <div class="flex flex-col h-5/6 overflow-x-auto overflow-y-scroll mb-4">
+                    <div class="flex flex-col h-5/6">
+                        <div class="grid grid-cols-12 gap-y-2">
+                            <Virtualize Items="@Messages">
+                                <MessageBubble
+                                    Name="@context.Username"
+                                    Message="@context.Message"
+                                    Time="@context.SentTime"
+                                    SentMessage="@context.SentMessage"/>
+                            </Virtualize>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-row items-center h-20 rounded-xl bg-gray-900 w-full px-4">
+                    <div class="flex-grow ml-4">
+                        <div class="relative w-full">
+                            <input @bind="ReadyToSendMessage.Message"
+                                   type="text" class="flex w-full border-gray-700 text-white border active:border-violet-500 focus:outline-none focus:ring rounded-xl bg-gray-800 focus:ring-violet-500 pl-4 h-10"/>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        @if (IsConnected)
+                        {
+                            <button @onclick="SendMessage"
+                                    type="submit"
+                                    class="flex items-center justify-center bg-violet-500 hover:bg-violet-600 rounded-xl text-white px-4 py-1 flex-shrink-0">
+                                <span>Send</span>
+                                <span class="ml-2">
+                                    <svg
+                                        class="w-4 h-4 transform rotate-45 -mt-px"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </button>
+                        }
+                        else
+                        {
+                            <div class="w-8 h-8 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

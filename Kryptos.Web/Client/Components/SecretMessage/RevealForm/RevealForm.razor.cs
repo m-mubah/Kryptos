@@ -5,14 +5,15 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 
-namespace Kryptos.Web.Client.Components.SecretMessage.ConcealForm;
+namespace Kryptos.Web.Client.Components.SecretMessage.RevealForm;
 
-public partial class ConcealForm : ComponentBase
+public partial class RevealForm : ComponentBase
 {
+    [Inject] private IJSRuntime JsRuntime { get; set; }
     [Inject] private IStreamCipherService StreamCipherService { get; set; }
     [Inject] private ISteganographyService SteganographyService { get; set; }
     private EditContext EditContext;
-    private ConcealMessage FormData { get; set; } = new();
+    private RevealMessage FormData { get; set; } = new();
     private string? ButtonDisabled { get; set; } = "disabled";
 
     private bool ShowResult { get; set; } = false;
@@ -51,9 +52,9 @@ public partial class ConcealForm : ComponentBase
 
             await Task.Delay(250);
         }
-
-        string encryptedBinary = StreamCipherService.Encrypt(FormData.Key, FormData.Secret);
-        Secret = SteganographyService.Conceal(FormData.Message, encryptedBinary);
+        
+        string encryptedMessage = SteganographyService.Reveal(FormData.Message);
+        Secret = StreamCipherService.Decrypt(FormData.Key, encryptedMessage);
 
         ShowResult = true;
     }

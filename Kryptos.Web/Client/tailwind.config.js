@@ -34,7 +34,11 @@ module.exports = {
             gray: colors.gray,
             slate: colors.slate,
         },
-        extend: {},
+        extend: {
+            height: {
+                '9/10' : '90%',
+            }
+        },
     },
     plugins: [
         require('@tailwindcss/typography'),

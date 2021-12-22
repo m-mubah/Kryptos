@@ -1,0 +1,27 @@
+﻿<div class="col-start-1 @(SentMessage ? "col-end-13" : "col-end-8") p-3 rounded-lg">
+    <div class="flex @(SentMessage ? "items-center justify-start flex-row-reverse" : "flex-row items-center")">
+        <div class="flex items-center justify-center h-10 w-10 rounded-full flex-shrink-0 
+             @(SentMessage ? "bg-teal-500" : "bg-lime-500")">
+        </div>
+        <div class="relative text-sm py-2 px-4 shadow rounded-xl @(SentMessage ? "mr-3 bg-indigo-100" : "ml-3 bg-white")">
+            <div class="font-bold">@Name</div>
+            <div>@Message</div>
+            <span class="font-medium text-sm text-gray-500 mb-3 dark:text-gray-400">@Time.ToString("ddd, MMM d, yyyy, hh:mm tt")</span>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string Message { get; set; }
+
+    [Parameter]
+    public DateTime Time { get; set; }
+
+    [Parameter]
+    public bool SentMessage { get; set; }
+}
