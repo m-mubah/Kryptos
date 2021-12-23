@@ -2,23 +2,29 @@
 <html lang="en" class="dark">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Kryptos.Web</title>
-    <base href="/" />
-    <link href="css/blazor.css" rel="stylesheet" />
-    <link href="css/app.min.css" rel="stylesheet" />
-    <link href="Kryptos.Web.Client.styles.css" rel="stylesheet" />
+    <base href="/"/>
+    <link href="css/blazor.css" rel="stylesheet"/>
+    <link href="css/app.min.css" rel="stylesheet"/>
+    <link href="Kryptos.Web.Client.styles.css" rel="stylesheet"/>
 </head>
 
 <body class="antialiased">
-    <div id="app">Loading...</div>
-
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
+<div id="app">
+    <div class="flex h-screen dark:bg-gray-800">
+        <div class="m-auto">
+            <div class="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+        </div>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+<script src="_framework/blazor.webassembly.js"></script>
 </body>
 </html>
