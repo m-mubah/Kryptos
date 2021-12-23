@@ -1,4 +1,5 @@
 using Kryptos.Web.Server.Hubs;
+using Kryptos.Web.Shared.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddResponseCompression(options =>
     options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
         new []{"application/octet-stream"});
 });
+
+builder.Services.AddScoped<IPasswordCrackerService, PasswordCrackerService>();
 
 var app = builder.Build();
 

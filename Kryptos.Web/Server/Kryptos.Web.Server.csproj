@@ -15,5 +15,9 @@
     <ProjectReference Include="..\Shared\Kryptos.Web.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Wordlists" />
+  </ItemGroup>
+
 
 </Project>

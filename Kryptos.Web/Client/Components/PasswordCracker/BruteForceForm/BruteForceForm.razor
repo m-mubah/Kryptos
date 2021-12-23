@@ -1,0 +1,51 @@
+﻿@using Kryptos.Web.Shared.Models
+<EditForm Model="@FormData" OnValidSubmit="@ValidFormSubmit" autocomplete="off">
+    <DataAnnotationsValidator/>
+    <div class="mb-6">
+        <label for="hash-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Hash
+        </label>
+        <InputText @bind-Value="FormData.Hash"
+                   id="hash-password"
+                   class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </InputText>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <ValidationMessage For="() => FormData.Hash"/>
+        </p>
+    </div>
+
+    <div class="mb-6">
+        <label for="hash-algorithm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+            Hash Algorithm
+        </label>
+        <InputSelect @bind-Value="FormData.HashAlgorithm"
+                     id="hash-algorithm"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            @foreach (var algorithm in Enum.GetValues(typeof(HashAlgorithm)))
+            {
+                <option value="@algorithm">@algorithm</option>
+            }
+        </InputSelect>
+    </div>
+
+    @if (RequestLoading)
+    {
+        <button disabled="disabled" class="btn-primary-disabled">
+            <div class="w-4 h-4 border-4 border-dashed rounded-full animate-spin dark:border-white"></div>
+        </button>
+    }
+    else
+    {
+        <button type="submit" disabled="@ButtonDisabled"
+                class="@(EditContext.Validate() ? "btn-primary" : "btn-primary-disabled")">
+            Crack
+        </button>
+    }
+</EditForm>
+
+
+
+@if (ShowResult)
+{
+    <HashCrackingResult Result="@CrackingResult" />
+}

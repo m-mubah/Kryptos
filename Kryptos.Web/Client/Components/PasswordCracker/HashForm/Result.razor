@@ -1,11 +1,9 @@
 ﻿@using Kryptos.Web.Client.Services.Clipboard
-@using Kryptos.Web.Client.Models.HammingCode
-
 <div class="w-full text-white bg-emerald-500 my-4 animate-fade-in">
     <div class="container flex items-center justify-between px-6 py-4 mx-auto">
         <div class="flex">
-            <p class="mx-3">
-                <b>@Result.Parity.ToString(): </b> @Result.Encoding
+            <p class="mx-3 font-mono">
+                @Hash
             </p>
         </div>
 
@@ -23,13 +21,13 @@
     IClipboardService ClipboardService { get; set; }
 
     [Parameter]
-    public EncodingResult Result { get; set; }
+    public string Hash { get; set; }
 
     async Task CopyToClipboard()
     {
         try
         {
-            await ClipboardService.WriteTextAsync(Result.Encoding);
+            await ClipboardService.WriteTextAsync(Hash);
         }
         catch (Exception e)
         {
