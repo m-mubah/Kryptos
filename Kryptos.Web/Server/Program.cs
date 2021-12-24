@@ -1,5 +1,5 @@
 using Kryptos.Web.Server.Hubs;
-using Kryptos.Web.Shared.Services;
+using Kryptos.Web.Server.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,6 +1,6 @@
 ﻿using Kryptos.Web.Shared.Models;
 
-namespace Kryptos.Web.Shared.Services;
+namespace Kryptos.Web.Server.Services;
 
 public interface IPasswordCrackerService
 {

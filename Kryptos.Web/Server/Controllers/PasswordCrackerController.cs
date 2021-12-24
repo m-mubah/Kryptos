@@ -1,6 +1,6 @@
 ﻿using Kryptos.Web.Server.Constants;
+using Kryptos.Web.Server.Services;
 using Kryptos.Web.Shared.Models;
-using Kryptos.Web.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kryptos.Web.Server.Controllers;

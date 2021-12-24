@@ -4,15 +4,13 @@ using System.Text;
 using Kryptos.Web.Shared.Models;
 using HashAlgorithm = Kryptos.Web.Shared.Models.HashAlgorithm;
 
-namespace Kryptos.Web.Shared.Services;
+namespace Kryptos.Web.Server.Services;
 
 public class PasswordCrackerService : IPasswordCrackerService
 {
     public async Task<string> Hash(HashAlgorithm algorithm, string input)
     {
         await Task.Delay(0);
-
-        input = input.ToLower();
 
         switch (algorithm)
         {
