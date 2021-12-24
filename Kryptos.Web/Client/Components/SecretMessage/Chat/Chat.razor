@@ -11,7 +11,7 @@
                                id="chat-conceal-name"
                                class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
                     </InputText>
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                    <p class="validation-error">
                         <ValidationMessage For="() => ConcealMessageFormData.Name"/>
                     </p>
                 </div>
@@ -24,7 +24,7 @@
                                id="chat-conceal-message"
                                class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
                     </InputText>
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                    <p class="validation-error">
                         <ValidationMessage For="() => ConcealMessageFormData.Message"/>
                     </p>
                 </div>
@@ -37,8 +37,8 @@
                                id="chat-conceal-key"
                                class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
                     </InputText>
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-                        <ValidationMessage For="() => ConcealMessageFormData.Message"/>
+                    <p class="validation-error">
+                        <ValidationMessage For="() => ConcealMessageFormData.Key"/>
                     </p>
                 </div>
 
@@ -50,7 +50,7 @@
                                id="chat-conceal-secret"
                                class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-violet-500 focus:border-violet-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-500 dark:focus:border-violet-500">
                     </InputText>
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                    <p class="validation-error">
                         <ValidationMessage For="() => ConcealMessageFormData.Secret"/>
                     </p>
                 </div>

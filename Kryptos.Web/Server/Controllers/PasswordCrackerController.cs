@@ -20,7 +20,8 @@ public class PasswordCrackerController : ControllerBase
     [HttpPost("Hash")]
     public async Task<string> Hash([FromBody] HashPasswordRequest hashPasswordRequest)
     {
-        return await _passwordCrackerService.Hash(hashPasswordRequest.HashAlgorithm, hashPasswordRequest.Password);
+        await Task.Delay(0);
+        return _passwordCrackerService.Hash(hashPasswordRequest.HashAlgorithm, hashPasswordRequest.Password);
     }
 
     [HttpPost("BruteForce")]

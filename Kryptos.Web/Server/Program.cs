@@ -16,6 +16,7 @@ builder.Services.AddResponseCompression(options =>
 });
 
 builder.Services.AddScoped<IPasswordCrackerService, PasswordCrackerService>();
+builder.Services.AddScoped<IWordGeneratorService, WordGeneratorService>();
 
 var app = builder.Build();
 
@@ -40,7 +41,10 @@ app.UseRouting();
 
 app.MapRazorPages();
 app.MapControllers();
+
 app.MapHub<ChatHub>("/chat");
+app.MapHub<PasswordCrackerHub>("/password-cracker");
+
 app.MapFallbackToFile("index.html");
 
 app.Run();

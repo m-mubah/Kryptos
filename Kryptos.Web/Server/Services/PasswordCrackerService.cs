@@ -8,9 +8,16 @@ namespace Kryptos.Web.Server.Services;
 
 public class PasswordCrackerService : IPasswordCrackerService
 {
-    public async Task<string> Hash(HashAlgorithm algorithm, string input)
+    private IWordGeneratorService _wordGenerator;
+
+    public PasswordCrackerService(IWordGeneratorService wordGenerator)
     {
-        await Task.Delay(0);
+        _wordGenerator = wordGenerator;
+    }
+
+    public string Hash(HashAlgorithm algorithm, string input)
+    {
+        input = input.ToLower();
 
         switch (algorithm)
         {
@@ -56,17 +63,17 @@ public class PasswordCrackerService : IPasswordCrackerService
 
         Stopwatch timer = Stopwatch.StartNew();
 
-        foreach (var word in GenerateWord())
+        Parallel.ForEach(_wordGenerator, (word, state) =>
         {
             wordCount++;
-            string computedHash = await Hash(request.HashAlgorithm, word);
+            string computedHash = Hash(request.HashAlgorithm, word);
 
             if (computedHash == request.Hash)
             {
                 generatedPassword = word;
-                break;
+                state.Break();
             }
-        }
+        });
 
         timer.Stop();
         TimeSpan elapsedTime = timer.Elapsed;
@@ -77,7 +84,7 @@ public class PasswordCrackerService : IPasswordCrackerService
             TotalTime =
                 $"{elapsedTime.Hours:00}:{elapsedTime.Minutes:00}:{elapsedTime.Seconds:00}.{elapsedTime.Milliseconds / 10:00}",
             WordCount = wordCount,
-            ErrorMessage = generatedPassword == null ? "Word not found." : null
+            ErrorMessage = generatedPassword == null ? "Word not found." : null,
         };
     }
 
@@ -88,18 +95,30 @@ public class PasswordCrackerService : IPasswordCrackerService
 
         Stopwatch timer = Stopwatch.StartNew();
 
-        foreach (var line in lines)
+        // foreach (var line in lines)
+        // {
+        //     var computedHash = Hash(algorithm, line);
+        //     wordCount++;
+        //
+        //     if (computedHash == hash)
+        //     {
+        //         generatedPassword = line;
+        //         break;
+        //     }
+        // }
+
+        Parallel.ForEach(lines, (word, state) =>
         {
-            var computedHash = await Hash(algorithm, line);
             wordCount++;
+            string computedHash = Hash(algorithm, word);
 
             if (computedHash == hash)
             {
-                generatedPassword = line;
-                break;
+                generatedPassword = word;
+                state.Break();
             }
-        }
-        
+        });
+
         timer.Stop();
         TimeSpan elapsedTime = timer.Elapsed;
 
@@ -111,34 +130,5 @@ public class PasswordCrackerService : IPasswordCrackerService
             WordCount = wordCount,
             ErrorMessage = generatedPassword == null ? "Word not found." : null
         };
-    }
-
-    private IEnumerable<string> GenerateWord(int maxLength = 6)
-    {
-        for (int length = 1; length <= maxLength; ++length)
-        {
-            StringBuilder stringBuilder = new StringBuilder(new String('0', length));
-            while (true)
-            {
-                string word = stringBuilder.ToString();
-                yield return word;
-
-                if (word.All(item => item == 'z'))
-                {
-                    break;
-                }
-
-                for (int i = length - 1; i >= 0; --i)
-                    if (stringBuilder[i] != 'z')
-                    {
-                        stringBuilder[i] = (Char) (stringBuilder[i] + 1);
-                        break;
-                    }
-                    else
-                    {
-                        stringBuilder[i] = '0';
-                    }
-            }
-        }
     }
 }

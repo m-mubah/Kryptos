@@ -2,25 +2,45 @@
 using Kryptos.Web.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Kryptos.Web.Client.Components.PasswordCracker.DictionaryAttackForm;
 
 public partial class DictionaryAttackForm : ComponentBase
 {
     [Inject] private IPasswordCrackerClientService PasswordCrackerService { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+    
     private EditContext EditContext;
     private DictionaryAttackRequest FormData { get; set; } = new();
     private string? ButtonDisabled { get; set; } = "disabled";
-
+    
+    private HubConnection? HubConnection;
+    public bool IsConnected =>
+        HubConnection?.State == HubConnectionState.Connected;
+    
     private CrackingResult CrackingResult { get; set; }
     private bool ShowResult { get; set; } = false;
     private bool RequestLoading { get; set; } = false;
     
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         EditContext = new EditContext(FormData);
         
-        base.OnInitialized();
+        HubConnection = new HubConnectionBuilder().WithUrl(NavigationManager.ToAbsoluteUri("/password-cracker"))
+            .Build();
+
+        HubConnection.On<CrackingResult>("DictionaryResult", result =>
+        {
+            RequestLoading = false;
+            ShowResult = true;
+            CrackingResult = result;
+            
+            StateHasChanged();
+        });
+        
+        await HubConnection.StartAsync();
+        await base.OnInitializedAsync();
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -42,17 +62,17 @@ public partial class DictionaryAttackForm : ComponentBase
 
     private async Task ValidFormSubmit(EditContext editContext)
     {
-        RequestLoading = true;
-        if (ShowResult)
+        if (HubConnection is not null)
         {
-            ShowResult = false;
+            RequestLoading = true;
+            if (ShowResult)
+            {
+                ShowResult = false;
 
-            await Task.Delay(250);
+                await Task.Delay(250);
+            }
+            
+            await HubConnection.SendAsync("DictionaryAttack", FormData);
         }
-
-        CrackingResult = await PasswordCrackerService.DictionaryAttack(FormData);
-        
-        ShowResult = true;
-        RequestLoading = false;
     }
 }

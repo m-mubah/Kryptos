@@ -10,4 +10,8 @@
     .btn-primary-disabled {
         @apply text-white bg-violet-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-violet-900;
     }
+    
+    .validation-error {
+        @apply mt-2 text-base text-red-600 dark:text-red-500 font-bold;
+    }
 }
