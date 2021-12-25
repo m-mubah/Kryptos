@@ -2,6 +2,7 @@
 using Kryptos.Web.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
 
 namespace Kryptos.Web.Client.Components.PasswordCracker.BruteForceForm;
@@ -9,19 +10,38 @@ namespace Kryptos.Web.Client.Components.PasswordCracker.BruteForceForm;
 public partial class BruteForceForm : ComponentBase
 {
     [Inject] private IPasswordCrackerClientService PasswordCrackerService { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+    
     private EditContext EditContext;
     private BruteForceAttackRequest FormData { get; set; } = new();
     private string? ButtonDisabled { get; set; } = "disabled";
-
+    
+    private HubConnection? HubConnection;
+    public bool IsConnected =>
+        HubConnection?.State == HubConnectionState.Connected;
+    
     private CrackingResult CrackingResult { get; set; }
     private bool ShowResult { get; set; } = false;
     private bool RequestLoading { get; set; } = false;
     
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         EditContext = new EditContext(FormData);
         
-        base.OnInitialized();
+        HubConnection = new HubConnectionBuilder().WithUrl(NavigationManager.ToAbsoluteUri("/password-cracker"))
+            .Build();
+
+        HubConnection.On<CrackingResult>("BruteForceResult", result =>
+        {
+            RequestLoading = false;
+            ShowResult = true;
+            CrackingResult = result;
+            
+            StateHasChanged();
+        });
+
+        await HubConnection.StartAsync();
+        await base.OnInitializedAsync();
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -43,17 +63,25 @@ public partial class BruteForceForm : ComponentBase
 
     private async Task ValidFormSubmit(EditContext editContext)
     {
-        RequestLoading = true;
-        if (ShowResult)
+        if (HubConnection is not null)
         {
-            ShowResult = false;
+            RequestLoading = true;
+            if (ShowResult)
+            {
+                ShowResult = false;
 
-            await Task.Delay(250);
+                await Task.Delay(250);
+            }
+            
+            await HubConnection.SendAsync("BruteForceAttack", FormData);
         }
-
-        CrackingResult = await PasswordCrackerService.BruteForceAttack(FormData);
-        
-        ShowResult = true;
-        RequestLoading = false;
+    }
+    
+    public async ValueTask DisposeAsync()
+    {
+        if (HubConnection is not null)
+        {
+            await HubConnection.DisposeAsync();
+        }
     }
 }

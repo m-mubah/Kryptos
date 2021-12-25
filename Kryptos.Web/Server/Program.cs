@@ -1,5 +1,5 @@
 using Kryptos.Web.Server.Hubs;
-using Kryptos.Web.Shared.Services;
+using Kryptos.Web.Server.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +15,8 @@ builder.Services.AddResponseCompression(options =>
         new []{"application/octet-stream"});
 });
 
-builder.Services.AddScoped<IPasswordCrackerService, PasswordCrackerService>();
+builder.Services.AddTransient<IPasswordCrackerService, PasswordCrackerService>();
+builder.Services.AddTransient<IWordGeneratorService, WordGeneratorService>();
 
 var app = builder.Build();
 
@@ -40,7 +41,10 @@ app.UseRouting();
 
 app.MapRazorPages();
 app.MapControllers();
+
 app.MapHub<ChatHub>("/chat");
+app.MapHub<PasswordCrackerHub>("/password-cracker");
+
 app.MapFallbackToFile("index.html");
 
 app.Run();

@@ -9,7 +9,8 @@
                    id="hash-password"
                    class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         </InputText>
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Only simple-case words will be processed.</p>
+        <p class="validation-error">
             <ValidationMessage For="() => FormData.Hash"/>
         </p>
     </div>
@@ -26,9 +27,12 @@
                 <option value="@algorithm">@algorithm</option>
             }
         </InputSelect>
+        <p class="validation-error">
+            <ValidationMessage For="() => FormData.HashAlgorithm"/>
+        </p>
     </div>
 
-    @if (RequestLoading)
+    @if (RequestLoading || IsConnected == false)
     {
         <button disabled="disabled" class="btn-primary-disabled">
             <div class="w-4 h-4 border-4 border-dashed rounded-full animate-spin dark:border-white"></div>
@@ -44,8 +48,7 @@
 </EditForm>
 
 
-
 @if (ShowResult)
 {
-    <HashCrackingResult Result="@CrackingResult" />
+    <HashCrackingResult Result="@CrackingResult"/>
 }

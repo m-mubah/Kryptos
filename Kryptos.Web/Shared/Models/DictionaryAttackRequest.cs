@@ -4,11 +4,11 @@ namespace Kryptos.Web.Shared.Models;
 
 public class DictionaryAttackRequest
 {
-    [Required]
+    [Required(ErrorMessage = "Hash is required.")]
     [RegularExpression("[0-9a-f]+", ErrorMessage = "Must be a valid hash.")]
     public string Hash { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "A hash algorithm must be selected.")]
     public HashAlgorithm HashAlgorithm { get; set; }
     
     // public IFormFile? FormFile { get; set; }

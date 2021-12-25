@@ -23,7 +23,7 @@ public partial class Chat : ComponentBase
     public bool IsConnected =>
         HubConnection?.State == HubConnectionState.Connected;
     
-    private List<ChatMessage> Messages = new List<ChatMessage>();
+    private List<ChatMessage> Messages = new();
 
     protected override async Task OnInitializedAsync()
     {

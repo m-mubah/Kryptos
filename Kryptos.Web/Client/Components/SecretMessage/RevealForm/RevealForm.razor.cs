@@ -9,7 +9,6 @@ namespace Kryptos.Web.Client.Components.SecretMessage.RevealForm;
 
 public partial class RevealForm : ComponentBase
 {
-    [Inject] private IJSRuntime JsRuntime { get; set; }
     [Inject] private IStreamCipherService StreamCipherService { get; set; }
     [Inject] private ISteganographyService SteganographyService { get; set; }
     private EditContext EditContext;

@@ -1,6 +1,6 @@
 ﻿using Kryptos.Web.Server.Constants;
+using Kryptos.Web.Server.Services;
 using Kryptos.Web.Shared.Models;
-using Kryptos.Web.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kryptos.Web.Server.Controllers;
@@ -20,7 +20,8 @@ public class PasswordCrackerController : ControllerBase
     [HttpPost("Hash")]
     public async Task<string> Hash([FromBody] HashPasswordRequest hashPasswordRequest)
     {
-        return await _passwordCrackerService.Hash(hashPasswordRequest.HashAlgorithm, hashPasswordRequest.Password);
+        await Task.Delay(0);
+        return _passwordCrackerService.Hash(hashPasswordRequest.HashAlgorithm, hashPasswordRequest.Password);
     }
 
     [HttpPost("BruteForce")]
