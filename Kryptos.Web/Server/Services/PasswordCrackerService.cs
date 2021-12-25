@@ -56,7 +56,7 @@ public class PasswordCrackerService : IPasswordCrackerService
         }
     }
 
-    public async Task<CrackingResult> BruteForceAttack(BruteForceAttackRequest request)
+    public CrackingResult BruteForceAttack(BruteForceAttackRequest request)
     {
         string? generatedPassword = null;
         int wordCount = 0;
@@ -88,25 +88,13 @@ public class PasswordCrackerService : IPasswordCrackerService
         };
     }
 
-    public async Task<CrackingResult> DictionaryAttack(HashAlgorithm algorithm, string hash, IEnumerable<string> lines)
+    public CrackingResult DictionaryAttack(HashAlgorithm algorithm, string hash, IEnumerable<string> lines)
     {
         string? generatedPassword = null;
         int wordCount = 0;
 
         Stopwatch timer = Stopwatch.StartNew();
-
-        // foreach (var line in lines)
-        // {
-        //     var computedHash = Hash(algorithm, line);
-        //     wordCount++;
-        //
-        //     if (computedHash == hash)
-        //     {
-        //         generatedPassword = line;
-        //         break;
-        //     }
-        // }
-
+        
         Parallel.ForEach(lines, (word, state) =>
         {
             wordCount++;
