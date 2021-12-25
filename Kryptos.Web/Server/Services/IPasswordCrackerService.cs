@@ -5,6 +5,6 @@ namespace Kryptos.Web.Server.Services;
 public interface IPasswordCrackerService
 {
     string Hash(HashAlgorithm algorithm, string input);
-    Task<CrackingResult> BruteForceAttack(BruteForceAttackRequest request);
-    Task<CrackingResult> DictionaryAttack(HashAlgorithm algorithm, string hash, IEnumerable<string> lines);
+    CrackingResult BruteForceAttack(BruteForceAttackRequest request);
+    CrackingResult DictionaryAttack(HashAlgorithm algorithm, string hash, IEnumerable<string> lines);
 }
