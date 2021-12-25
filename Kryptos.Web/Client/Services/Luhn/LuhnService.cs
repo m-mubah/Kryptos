@@ -23,6 +23,11 @@ public class LuhnService : ILuhnService
         {6, VisaRegexPattern}
     };
     
+    /// <summary>
+    /// Returns validity of a credit card number by applying the Luhn algorithm.
+    /// </summary>
+    /// <param name="cardNumber">credit card number</param>
+    /// <returns>validity</returns>
     public bool Validate(string cardNumber)
     {
         int sumOfDigits = cardNumber.Where((c) => c >= '0' && c <= '9')
@@ -33,6 +38,11 @@ public class LuhnService : ILuhnService
         return sumOfDigits % 10 == 0;
     }   
     
+    /// <summary>
+    /// Gets the manufacturer of a credit card
+    /// </summary>
+    /// <param name="cardNumber">credit card number</param>
+    /// <returns>name of manufacturer</returns>
     public string GetCreditCardManufacturer(string cardNumber)
     {
         var manufacturer = cardNumber switch
@@ -50,6 +60,11 @@ public class LuhnService : ILuhnService
         return manufacturer;
     }
     
+    /// <summary>
+    /// Maps a credit card to the image of it's manufacturer
+    /// </summary>
+    /// <param name="cardNumber">credit card number</param>
+    /// <returns>image path</returns>
     public string GetImagePath(string cardNumber)
     {
         var manufacturer = cardNumber switch
@@ -72,6 +87,11 @@ public class LuhnService : ILuhnService
         return manufacturer;
     }
     
+    /// <summary>
+    /// Gets the Major Industry Identifier of a credit card.
+    /// </summary>
+    /// <param name="cardNumber">credit card number</param>
+    /// <returns>Industry identifier</returns>
     public string GetMajorIndustryIdentifier(string cardNumber)
     {
         switch (cardNumber[0])
@@ -99,7 +119,11 @@ public class LuhnService : ILuhnService
         }
     }
 
-    
+    /// <summary>
+    /// Generates a new valid credit card number from a selected manufacturer.
+    /// </summary>
+    /// <param name="manufacturer">credit card manufacturer</param>
+    /// <returns>Valid credit card</returns>
     public CreditCard Generate(CardManufacturer manufacturer)
     {
         var pattern = _cardManufacturerPatterns[(int) manufacturer];
@@ -110,7 +134,8 @@ public class LuhnService : ILuhnService
         {
             Number = xeger.Generate()
         };
-
+        
+        // iterate until a valid number is generated
         while (!Validate(card.Number))
         {
             card.Number = xeger.Generate();

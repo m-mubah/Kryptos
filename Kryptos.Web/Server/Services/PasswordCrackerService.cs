@@ -15,6 +15,12 @@ public class PasswordCrackerService : IPasswordCrackerService
         _wordGenerator = wordGenerator;
     }
 
+    /// <summary>
+    /// Get the hashed input based on the selected hashing algorithm.
+    /// </summary>
+    /// <param name="algorithm">Hashing algorithm</param>
+    /// <param name="input">string to hash</param>
+    /// <returns>hash as a string</returns>
     public string Hash(HashAlgorithm algorithm, string input)
     {
         input = input.ToLower();
@@ -56,13 +62,19 @@ public class PasswordCrackerService : IPasswordCrackerService
         }
     }
 
+    /// <summary>
+    /// Performs a brute force attack on a hashed string with the given hash algorithm.
+    /// </summary>
+    /// <param name="request">Hash to brute force and hashing algorithm</param>
+    /// <returns>actual value or failure message</returns>
     public CrackingResult BruteForceAttack(BruteForceAttackRequest request)
     {
         string? generatedPassword = null;
         int wordCount = 0;
 
-        Stopwatch timer = Stopwatch.StartNew();
-
+        Stopwatch timer = Stopwatch.StartNew(); // start a timer
+        
+        // the task is parallelized to improve throughput
         Parallel.ForEach(_wordGenerator, (word, state) =>
         {
             wordCount++;
@@ -75,26 +87,34 @@ public class PasswordCrackerService : IPasswordCrackerService
             }
         });
 
-        timer.Stop();
-        TimeSpan elapsedTime = timer.Elapsed;
+        timer.Stop(); // stop the timer
+        TimeSpan elapsedTime = timer.Elapsed; // get passed time
 
         return new CrackingResult
         {
             Password = generatedPassword ?? "",
-            TotalTime =
+            TotalTime = // convert to format hh:mm:ss.ms
                 $"{elapsedTime.Hours:00}:{elapsedTime.Minutes:00}:{elapsedTime.Seconds:00}.{elapsedTime.Milliseconds / 10:00}",
             WordCount = wordCount,
             ErrorMessage = generatedPassword == null ? "Word not found." : null,
         };
     }
 
+    /// <summary>
+    /// Performs a dictionary attack on a hashed string with the given hash algorithm.
+    /// </summary>
+    /// <param name="algorithm">Hash algorithm</param>
+    /// <param name="hash">Hash string</param>
+    /// <param name="lines">An enumerable of strings from the dictionary</param>
+    /// <returns>actual value or failure message</returns>
     public CrackingResult DictionaryAttack(HashAlgorithm algorithm, string hash, IEnumerable<string> lines)
     {
         string? generatedPassword = null;
         int wordCount = 0;
 
-        Stopwatch timer = Stopwatch.StartNew();
+        Stopwatch timer = Stopwatch.StartNew(); // start a timer
         
+        // the task is parallelized to improve throughput
         Parallel.ForEach(lines, (word, state) =>
         {
             wordCount++;
@@ -107,13 +127,13 @@ public class PasswordCrackerService : IPasswordCrackerService
             }
         });
 
-        timer.Stop();
-        TimeSpan elapsedTime = timer.Elapsed;
+        timer.Stop(); // stop the timer
+        TimeSpan elapsedTime = timer.Elapsed; // get passed time
 
         return new CrackingResult
         {
             Password = generatedPassword ?? "",
-            TotalTime =
+            TotalTime = // convert to format hh:mm:ss.ms
                 $"{elapsedTime.Hours:00}:{elapsedTime.Minutes:00}:{elapsedTime.Seconds:00}.{elapsedTime.Milliseconds / 10:00}",
             WordCount = wordCount,
             ErrorMessage = generatedPassword == null ? "Word not found." : null

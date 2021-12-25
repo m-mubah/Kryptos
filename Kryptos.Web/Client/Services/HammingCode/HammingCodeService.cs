@@ -4,7 +4,7 @@ namespace Kryptos.Web.Client.Services.HammingCode;
 
 public class HammingCodeService : IHammingCodeService
 {
-    /// <summary>
+        /// <summary>
         /// Uses the formula 2^r >= m + r + 1 to calculate the number of redundant bits.
         /// </summary>
         /// <param name="length">Length of the data to encode.</param>
@@ -47,11 +47,11 @@ public class HammingCodeService : IHammingCodeService
         }
 
         /// <summary>
-        /// Encodes a given binary string (string with only 1s and 0s) using hamming code.
+        /// Encodes the data using hamming encode.
         /// </summary>
-        /// <param name="data">Data to be encoded.</param>
-        /// <param name="parity">This flag determines whether to use even parity or odd parity for encoding.</param>
-        /// <returns>Encoded binary string.</returns>
+        /// <param name="data">a binary number that's 4 bits long.</param>
+        /// <param name="parity">parity to encode with. Must be odd or even</param>
+        /// <returns>Encoded binary</returns>
         public EncodingResult Encode(string data, Parity parity)
         {
             List<int> sequence = data.Select(i => int.Parse(i.ToString())).ToList();
@@ -111,6 +111,11 @@ public class HammingCodeService : IHammingCodeService
             return new EncodingResult(resultString, parity);
         }
 
+        /// <summary>
+        /// Decodes a list of hamming encoded binary numbers.
+        /// </summary>
+        /// <param name="data">Encoded binary numbers.</param>
+        /// <returns>Decoded binary numbers.</returns>
         private List<int> Decode(List<int> data)
         {
             int dataIndex = -1;
@@ -138,6 +143,12 @@ public class HammingCodeService : IHammingCodeService
             return result.Select(i => int.Parse(i.ToString())).ToList();
         }
         
+        /// <summary>
+        /// Detects an error in a hamming encoded binary number.
+        /// </summary>
+        /// <param name="data">a binary number that's 7 bits long.</param>
+        /// <param name="dataParity">parity to decode with. Must be odd or even.</param>
+        /// <returns>A class with error position and fixed error</returns>
         public DecodingResult DetectError(string data, Parity dataParity)
         {
             List<int> sequence = data.Select(i => int.Parse(i.ToString())).ToList();
