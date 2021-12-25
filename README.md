@@ -11,6 +11,11 @@ Kryptos is a .NET 6 application that explores and explains some concepts in cryp
 - developed in Rider
 
 ## Running the app
+Before running the app make sure to install Node.js dependencies.
+```sh
+cd .\Kryptos.Web\Client\
+npm install
+```
 
 ### With visual studio
 - Open the solution in visual studio. 
