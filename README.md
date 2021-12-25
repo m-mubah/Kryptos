@@ -33,6 +33,6 @@ cd .\Kryptos.Web\Server\
 dotnet run
 ```
 - - With hot reload
-- ```sh
+ ```sh
 dotnet watch run
 ```
