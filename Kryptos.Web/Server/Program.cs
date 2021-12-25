@@ -15,8 +15,8 @@ builder.Services.AddResponseCompression(options =>
         new []{"application/octet-stream"});
 });
 
-builder.Services.AddScoped<IPasswordCrackerService, PasswordCrackerService>();
-builder.Services.AddScoped<IWordGeneratorService, WordGeneratorService>();
+builder.Services.AddTransient<IPasswordCrackerService, PasswordCrackerService>();
+builder.Services.AddTransient<IWordGeneratorService, WordGeneratorService>();
 
 var app = builder.Build();
 
